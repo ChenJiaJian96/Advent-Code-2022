@@ -31,11 +31,11 @@ fun main() {
         it.calResult2()
     }
 
-    val testInput = readInput("Day02_test")
+    val testInput = readInput("02", true)
     check(part1(testInput) == 15)
     check(part2(testInput) == 12)
 
-    val input = readInput("Day02")
+    val input = readInput("02")
     part1(input).println()
     part2(input).println()
 }

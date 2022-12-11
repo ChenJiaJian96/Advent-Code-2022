@@ -3,11 +3,11 @@ fun main() {
 
     fun part2(input: List<String>): Int = 0
 
-    val testInput = readInput("Day01_test")
+    val testInput = readInput("01", true)
     check(part1(testInput) == 0)
 //    check(part2(testInput) == 0)
 
-    val input = readInput("Day01")
+    val input = readInput("01")
     part1(input).println()
     part2(input).println()
 }

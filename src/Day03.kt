@@ -26,11 +26,11 @@ fun main() {
         }
     }
 
-    val testInput = readInput("Day03_test")
+    val testInput = readInput("03", true)
     check(part1(testInput) == 157)
     check(part2(testInput) == 70)
 
-    val input = readInput("Day03")
+    val input = readInput("03")
     check(part1(input) == 7597)
     check(part2(input) == 2607)
 }
