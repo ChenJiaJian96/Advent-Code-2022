@@ -1,37 +1,29 @@
 fun main() {
-    fun findSameChar(first: String, second: String): Char {
-        val firstSet = first.toList().toSet()
-        second.forEach {
-            if (firstSet.contains(it)) return it
-        }
-        return 'a'
+    fun findSameChar(first: String, second: String): Set<Char> {
+        return first.toCharArray().toSet() intersect second.toCharArray().toSet()
     }
 
-    fun findSameChar(first: String, second: String, third: String): Char {
-        val firstSet = first.toList().toSet()
-        val firstAndSecond = mutableSetOf<Char>()
-        second.forEach {
-            if (firstSet.contains(it)) firstAndSecond.add(it)
-        }
-        third.forEach {
-            if (firstAndSecond.contains(it)) return it
-        }
-        return 'a'
+    fun findSameChar(first: String, second: String, third: String): Set<Char> {
+        return first.toCharArray().toSet() intersect second.toCharArray().toSet() intersect third.toCharArray().toSet()
     }
 
     fun part1(input: List<String>): Int {
-        return input.sumOf {
-            val size = it.length
-            val first = it.substring(0, size / 2)
-            val second = it.substring(size / 2)
-            findSameChar(first, second).toVal()
+        return input.map {
+            it.substring(0, it.length / 2) to it.substring(it.length / 2)
+        }.flatMap {
+            findSameChar(it.first, it.second)
+        }.sumOf {
+            it.toVal()
         }
     }
 
     fun part2(input: List<String>): Int {
         return input.windowed(3, 3) {
-            findSameChar(it[0], it[1], it[2]).toVal()
-        }.sum()
+            val (first, second, third) = it
+            findSameChar(first, second, third)
+        }.sumOf { chars ->
+            chars.sumOf { it.toVal() }
+        }
     }
 
     val testInput = readInput("Day03_test")
@@ -39,13 +31,13 @@ fun main() {
     check(part2(testInput) == 70)
 
     val input = readInput("Day03")
-    part1(input).println()
-    part2(input).println()
+    check(part1(input) == 7597)
+    check(part2(input) == 2607)
 }
 
 fun Char.toVal() =
     if (this.isLowerCase()) {
-        this.toInt() - 96
+        this - 'a' + 1
     } else {
-        this.toInt() - 38
+        this - 'A' + 27
     }

@@ -3,9 +3,12 @@
  */
 fun main() {
 
+
+
     fun String.calResult(): Int {
-        val otherChoice = this[0].toChoice()
-        val myChoice = this[2].toChoice()
+        val (otherChar, _, myChar) = this
+        val otherChoice = otherChar.toChoice()
+        val myChoice = myChar.toChoice()
         return myChoice.run {
             this.toScore() + this.challengeTo(otherChoice).toScore()
         }
@@ -66,7 +69,7 @@ enum class Result {
                 'X' -> LOSE
                 'Y' -> DRAW
                 'Z' -> WIN
-                else -> throw IllegalArgumentException("invalid input")
+                else -> error("invalid input")
             }
     }
 }
@@ -111,6 +114,6 @@ fun Char.toChoice(): Choice {
     } else if (this == 'C' || this == 'Z') {
         Choice.SCISSORS
     } else {
-        throw IllegalArgumentException("invalid input")
+        error("invalid input")
     }
 }
